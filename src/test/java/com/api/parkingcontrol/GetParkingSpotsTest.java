@@ -116,9 +116,7 @@ class GetParkingSpotsTest {
 
     @DisplayName("Buscar um com repetição e parâmetros")
     @RepeatedTest(value = 100, name = "{displayName} - {currentRepetition}/{totalRepetitions}")
-    @ParameterizedTest
-    @MethodSource("provideLicensePlates")
-    void testFindAllWithRepetition(RepetitionInfo repetitionInfo,String licensePlate) {
+    void testFindAllWithRepetition(RepetitionInfo repetitionInfo) {
         
         int expectedSize = parkingSpots.size();
         Page<ParkingSpotModel> parkingSpotPage = new PageImpl<>(parkingSpots);
@@ -135,12 +133,5 @@ class GetParkingSpotsTest {
         assertNotNull(parkingSpotPage);
         assertEquals(expectedSize, parkingSpotPage.getSize());
         assertEquals(100, repetitionInfo.getTotalRepetitions());
-    }
-
-    private Collection<String> provideLicensePlates() {
-        return Arrays.asList(
-            parkingSpots.get(0).getLicensePlateCar(),
-            parkingSpots.get(1).getLicensePlateCar()
-        );
     }
 }
